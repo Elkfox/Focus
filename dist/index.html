@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Popups</title>
+    <style>
+      .popup {
+        display: none;
+        border: 1px solid black;
+        height: 100px;
+        width: 100px;
+      }
+
+      .visible {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#" data-target=".popup" data-open>Show Popup</a>
+    <a href="#" data-target=".popup" data-close>Close Popup</a>
+    <a href="#" data-target=".popup" data-toggle>Toggle</a>
+    <div class="popup">
+      <p>This is a popup.</p>
+    </div>
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+  <script type="text/javascript" src="popup.js"></script></body>
+</html>
