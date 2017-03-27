@@ -19,8 +19,7 @@ const config = {
 };
 
 const unCompressed = Object.assign({}, config, {
-  entry: ['babel-polyfill',
-    './src/index.js',
+  entry: ['./src/index.js',
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -33,8 +32,7 @@ const unCompressed = Object.assign({}, config, {
 });
 
 const minified = Object.assign({}, config, {
-  entry: ['babel-polyfill',
-    './src/index.js',
+  entry: ['./src/index.js',
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),

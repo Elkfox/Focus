@@ -23,7 +23,7 @@ const Popups = (() => {
 
     show() {
       console.log('Showing!');
-      if (!this.isVisible) {
+      if (!this.isVisible || !this.element.hasClass(this.config.visibleClass)) {
         console.log(this.element);
         this.element.addClass(this.config.visibleClass);
         this.isVisible = true;
@@ -38,7 +38,7 @@ const Popups = (() => {
     }
 
     hide() {
-      if (this.isVisible) {
+      if (this.isVisible || this.element.hasClass(this.config.visibleClass)) {
         this.element.removeClass(this.config.visibleClass);
         this.isVisible = false;
         return jQuery(document).trigger('concrete:popup:close');
