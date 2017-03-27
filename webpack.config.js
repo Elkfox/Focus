@@ -25,7 +25,7 @@ const unCompressed = Object.assign({}, config, {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'popup.js',
-    library: 'Popup',
+    library: 'Concrete',
   },
   externals: {
     jquery: 'jQuery',
@@ -39,8 +39,8 @@ const minified = Object.assign({}, config, {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'popup.min.js',
-    library: 'Popup',
-  },   
+    library: 'Concrete',
+  },
   externals: {
         // require("jquery") is external and available
         //  on the global var jQuery

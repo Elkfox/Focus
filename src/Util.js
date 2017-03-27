@@ -3,9 +3,7 @@ const jQuery = require('jquery');
 
 const Util = {
   getSelectorFromElement: (element) => {
-    console.log(element);
     let selector = jQuery(element).data('target');
-    console.log(selector);
     if (!selector || selector === '#') {
       selector = jQuery(element).attr('href') || '';
     }
@@ -18,12 +16,13 @@ const Util = {
     }
   },
 
+
   getTarget: (element, e) => {
     let target = null;
-    if (jQuery(this).is('a')) {
+    if (jQuery(element).is('a')) {
       e.preventDefault();
     }
-    const selector = this.getSelectorFromElement(element);
+    const selector = Util.getSelectorFromElement(element);
     if (selector) {
       target = jQuery(selector)[0];
     }
