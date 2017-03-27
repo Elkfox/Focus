@@ -23,7 +23,7 @@ const unCompressed = Object.assign({}, config, {
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'popup.js',
+    filename: 'concrete.popup.js',
     library: 'Concrete',
   },
   externals: {
@@ -36,7 +36,7 @@ const minified = Object.assign({}, config, {
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'popup.min.js',
+    filename: 'concrete.popup.min.js',
     library: 'Concrete',
   },
   externals: {
