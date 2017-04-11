@@ -79,6 +79,7 @@ const Popups = (() => {
 
   jQuery(document).ready(() => {
     jQuery(document).on('click', '[data-trigger]', function trigger(e) {
+      e.preventDefault();
       const target = Util.getTarget(this, e);
       return Popup.jQueryInterface.call(jQuery(target), { toggle: 'toggle' });
     });

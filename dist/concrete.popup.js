@@ -765,6 +765,7 @@ var Popups = function () {
 
   jQuery(document).ready(function () {
     jQuery(document).on('click', '[data-trigger]', function trigger(e) {
+      e.preventDefault();
       var target = Util.getTarget(this, e);
       return Popup.jQueryInterface.call(jQuery(target), { toggle: 'toggle' });
     });
