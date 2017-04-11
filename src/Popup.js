@@ -1,7 +1,7 @@
 const Util = require('./Util.js');
 const jQuery = require('jquery');
 
-const Popups = (() => {
+module.exports = (() => {
   const DEFAULT_CONFIG = {
     visibleClass: 'visible',
   }; // We don't actually have a real config yet.
@@ -88,4 +88,4 @@ const Popups = (() => {
   return Popup;
 })();
 
-module.exports = Popups;
+

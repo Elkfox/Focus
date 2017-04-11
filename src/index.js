@@ -1,8 +1,8 @@
-const Popify = require('./Popify.js');
+const Popup = require('./Popup.js');
 
 // We modular up in here.
 
 
 module.exports = {
-  Popify,
+  Popup,
 };

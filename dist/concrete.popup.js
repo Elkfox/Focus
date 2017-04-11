@@ -643,13 +643,13 @@ module.exports = jQuery;
 "use strict";
 
 
-var Popify = __webpack_require__(40);
+var Popup = __webpack_require__(40);
 
 // We modular up in here.
 
 
 module.exports = {
-  Popify: Popify
+  Popup: Popup
 };
 
 /***/ }),
@@ -680,7 +680,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Util = __webpack_require__(41);
 var jQuery = __webpack_require__(38);
 
-var Popups = function () {
+module.exports = function () {
   var DEFAULT_CONFIG = {
     visibleClass: 'visible'
   }; // We don't actually have a real config yet.
@@ -773,8 +773,6 @@ var Popups = function () {
 
   return Popup;
 }();
-
-module.exports = Popups;
 
 /***/ }),
 /* 41 */
