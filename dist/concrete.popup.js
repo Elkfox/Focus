@@ -704,21 +704,22 @@ module.exports = function () {
     (0, _createClass3.default)(Popup, [{
       key: 'show',
       value: function show() {
+        var _this = this;
+
         if (!this.isVisible || !this.element.hasClass(this.config.visibleClass)) {
           this.element.addClass(this.config.visibleClass);
           this.isVisible = true;
           var that = this;
 
           // When someone clicks the [data-close] button then we should close the modal.
-          jQuery(document).one('click', '[data-close]', function (e) {
+          jQuery(document).one('click', '[data-close], :not(' + this.config.target + ')', function (e) {
             e.preventDefault();
             that.hide();
           });
 
-          // Close the popup whenever someone clicks outside it.
-          jQuery(document).one('click', ':not(' + this.config.target + ')', function (e) {
+          jQuery(document).one('keyup', function (e) {
             e.preventDefault();
-            that.hide();
+            if (e.keyCode === 27) _this.hide();
           });
 
           return jQuery(document).trigger('concrete:popup:open');

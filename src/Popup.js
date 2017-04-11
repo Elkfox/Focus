@@ -27,15 +27,14 @@ module.exports = (() => {
         const that = this;
 
         // When someone clicks the [data-close] button then we should close the modal.
-        jQuery(document).one('click', '[data-close]', (e) => {
+        jQuery(document).one('click', `[data-close], :not(${this.config.target})`, (e) => {
           e.preventDefault();
           that.hide();
         });
 
-        // Close the popup whenever someone clicks outside it.
-        jQuery(document).one('click', `:not(${this.config.target})`, (e) => {
+        jQuery(document).one('keyup', (e) => {
           e.preventDefault();
-          that.hide();
+          if (e.keyCode === 27) this.hide();
         });
 
         return jQuery(document).trigger('concrete:popup:open');

@@ -111,8 +111,3 @@ The following options are available for popups. They can be set on the Data API 
 * Configuration variables
   * What should they be?
   * Allow them to be set via data-attributes and when creating a new Popup object.
-
-* Include some CSS for people who don't have or want to write CSS for their popups.
-  * Steal it from Reinforced Concrete.
-
-* Esc key integration
