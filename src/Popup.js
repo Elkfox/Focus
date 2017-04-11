@@ -12,7 +12,6 @@ const Popups = (() => {
     constructor(target, config = {}) {
       this.target = target;
       this.element = jQuery(this.target);
-      console.log(this.target, this.element);
       this.config = Object.assign({}, DEFAULT_CONFIG, config);
       this.isVisible = false;
       this.show = this.show.bind(this);
@@ -22,16 +21,23 @@ const Popups = (() => {
 
 
     show() {
-      console.log('Showing!');
       if (!this.isVisible || !this.element.hasClass(this.config.visibleClass)) {
-        console.log(this.element);
         this.element.addClass(this.config.visibleClass);
         this.isVisible = true;
         const that = this;
+
+        // When someone clicks the [data-close] button then we should close the modal.
         jQuery(document).one('click', '[data-close]', (e) => {
           e.preventDefault();
           that.hide();
         });
+
+        // Close the popup whenever someone clicks outside it.
+        jQuery(document).one('click', `:not(${this.config.target})`, (e) => {
+          e.preventDefault();
+          that.hide();
+        });
+
         return jQuery(document).trigger('concrete:popup:open');
       }
       return jQuery(document).trigger('concrete:popup:error', { error: 'Popup already open' });
@@ -52,13 +58,14 @@ const Popups = (() => {
 
     static jQueryInterface(config) {
       let data = jQuery(this).data(DATA_KEY);
-      // We don't want to worry about config at the moment.
-      const popupConfig = jQuery.extend({}, DEFAULT_CONFIG, config);
-      console.log(data);
+      // We want to grab all the data keys from the modal so we can use data attributes
+      // For configuration.
+      const popupConfig = jQuery.extend({}, DEFAULT_CONFIG,
+                                        jQuery(this).data,
+                                        config && typeof config === 'object');
       if (!data) {
         data = new Popup(this, popupConfig);
         jQuery(this).data(DATA_KEY, data);
-        console.log(data);
       }
       if (typeof config === 'string') {
         if (data[config] !== undefined) {

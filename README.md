@@ -1,5 +1,5 @@
 # Concrete Popups
-By [Elkfox](https://www.elkfox.com)
+A minimal popup creator built by [Elkfox](https://www.elkfox.com).
 
 ## Installation
 ### Requirements
@@ -8,9 +8,7 @@ By [Elkfox](https://www.elkfox.com)
 ---
 
 ### Instructions
-Grab `concrete.popup.js` or `concrete.popup.min.js` from the `dist/` folder. If you're just wanting 
-to include a basic modal script on the your page include the following snippet in your index.html or 
-other template file
+Grab `concrete.popup.js` or `concrete.popup.min.js` from the `dist/` folder. If you're just wanting to include a basic modal script on the your page include the following snippet in your index.html or other template file
 ```html
 <script src="<path_to_javascript_files>/concrete.popup.min.js"></script>
 ```
@@ -19,9 +17,10 @@ tag (`</body>`)
 ```liquid
 {{ 'concrete.popup.min.js' | asset_url | script_tag }}
 ```
- ----
+----
 
-## Setting up.
+
+## Usage
 
 ### Data API.
   If you have a popup but you only want to activate it whenever someone clicks a button then the 
@@ -56,12 +55,12 @@ tag (`</body>`)
   that fires whenever someone adds something to the cart. This is what our popup might look like
 
   ```html
-    <div class="cart-popup" id="cart">
-      <a href="#" class="cart-popup__close-button" data-close data-target=".cart-popup">Close Cart</a>
-      <div class="cart-popup__line-items">
+    <div class="cart popup" id="cart">
+      <a href="#" class="cart popup-close" data-close data-target=".cart">Close Cart</a>
+      <div class="popup cart__line-items">
         <!--- HTML That contains markup for cart line items-->
       </div>
-      <div class="cart-popup__footer">
+      <div class="popup cart__footer">
         <!-- HTML for cart popup footer that contains total, shipping and tax -->
       </div>
     </div>
@@ -76,13 +75,31 @@ tag (`</body>`)
   </script>
   ```
 
+
+### CSS 
+We provide some css and scss files located in the `css/` folder that has been pulled from our inhouse framework "Concrete". Variables located at the top of the file are the easiest ways to modify the colours of the popup.
+
+#### Table Of Classes
+| Class | Description |
+| ----- | ----------- |
+| .popup | The parent class of the popup.<br /> Should be added to the starting element of every popup to apply styling.|
+| .overlay | When added to the starting element of the div this will open the popup with an opaque background overlay |
+| .full-screen | Opens a 100% width and 100% height popup. |
+
 ---
+
+### Configuration
+The following options are available for popups. They can be set on the Data API modals by giving the popup the data attribute corresponding to the option.
+
+| Option | data-api | Default | Description |
+| :----- | -------- | :------- | ----------- |
+| visibleClass | `data-visibleClass` | `visible` | Set the visibile class that gets added to show the popup. |
 
 ### jQuery Events
   The following events occur when opening, closing, or toggling a popup
 
 | Event        | Parameers          | Description  |
-| ------------- |:-------------:| -----:|
+| ------------- |:-------------| :-----|
 | concrete:popup:open     | None | Fires when a popup has finished opening |
 | concrete:popup:close    | None     |   Fires when a popup has finished closing |
 | concrete:popup:error | error (String)      | Fires when an event cannt open or close. Passes the error the event |
@@ -97,9 +114,5 @@ tag (`</body>`)
 
 * Include some CSS for people who don't have or want to write CSS for their popups.
   * Steal it from Reinforced Concrete.
-
-* Click to close
-
-* Overlay background
 
 * Esc key integration

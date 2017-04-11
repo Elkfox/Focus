@@ -1,0 +1,150 @@
+@charset "UTF-8";
+/**
+SCSS for popups taken from Reinforced Concrete © Elkfox 2017
+**/
+.popup {
+  position: fixed;
+  z-index: 9996;
+  opacity: 0;
+  visibility: hidden; }
+  .popup.visible {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out; }
+  .popup .popup-content {
+    display: inline-block;
+    z-index: 9999;
+    max-width: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+    padding: 30px;
+    background-color: white;
+    text-align: initial;
+    cursor: default;
+    white-space: initial; }
+  .popup.overlay {
+    background: rgba(0, 0, 0, 0.85);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed; }
+    .popup.overlay .popup-outside {
+      z-index: 9998;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%; }
+    .popup.overlay .popup-inner {
+      -webkit-backface-visibility: hidden;
+      cursor: pointer;
+      z-index: 9997;
+      text-align: center;
+      white-space: nowrap;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      -webkit-transition-delay: 0.5s;
+      -moz-transition-delay: 0.5s;
+      transition-delay: 0.5s;
+      -webkit-transform: translateY(-15px);
+      -moz-transform: translateY(-15px);
+      -ms-transform: translateY(-15px);
+      transform: translateY(-15px);
+      -webkit-transition: all 0.3s ease-out;
+      -moz-transition: all 0.3s ease-out;
+      -ms-transition: all 0.3s ease-out;
+      transition: all 0.3s ease-out; }
+    .popup.overlay .popup-content {
+      position: relative;
+      top: 50%;
+      -webkit-transform: perspective(1px) translateY(-50%);
+      -ms-transform: perspective(1px) translateY(-50%);
+      transform: perspective(1px) translateY(-50%); }
+    .popup.overlay.visible .popup-inner {
+      -webkit-transform: translateY(0px);
+      -moz-transform: translateY(0px);
+      -ms-transform: translateY(0px);
+      transform: translateY(0px); }
+  .popup.full-screen {
+    background: rgba(0, 0, 0, 0.85);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%; }
+    .popup.full-screen .popup-inner {
+      -webkit-backface-visibility: hidden;
+      cursor: pointer;
+      z-index: 9999;
+      text-align: center;
+      white-space: nowrap;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      -webkit-transition-delay: 0.5s;
+      -moz-transition-delay: 0.5s;
+      transition-delay: 0.5s;
+      -webkit-transform: translateY(-15px);
+      -moz-transform: translateY(-15px);
+      -ms-transform: translateY(-15px);
+      transform: translateY(-15px);
+      -webkit-transition: all 0.3s ease-out;
+      -moz-transition: all 0.3s ease-out;
+      -ms-transition: all 0.3s ease-out;
+      transition: all 0.3s ease-out; }
+    .popup.full-screen .popup-content {
+      width: 100%;
+      height: 100%; }
+    .popup.full-screen.visible .popup-inner {
+      -webkit-transform: translateY(0px);
+      -moz-transform: translateY(0px);
+      -ms-transform: translateY(0px);
+      transform: translateY(0px); }
+  .popup.notification .popup-content {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    padding: 15px;
+    -webkit-transition-delay: 0.5s;
+    -moz-transition-delay: 0.5s;
+    transition-delay: 0.5s;
+    -webkit-transform: translateY(-15px);
+    -moz-transform: translateY(-15px);
+    -ms-transform: translateY(-15px);
+    transform: translateY(-15px);
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out; }
+  .popup.notification.visible .popup-content {
+    -webkit-transform: translateY(0px);
+    -moz-transform: translateY(0px);
+    -ms-transform: translateY(0px);
+    transform: translateY(0px); }
+  .popup .popup-close {
+    display: block;
+    position: absolute;
+    top: 15px;
+    right: 15px; }
+
+/*# sourceMappingURL=popup.css.map */

@@ -1,0 +1,151 @@
+/**
+SCSS for popups taken from Reinforced Concrete © Elkfox 2017
+**/
+
+$transition: all .3s ease-out;
+$transitionDelay: 0.5s;
+$gutter: 30px;
+$colorBackground: rgb(255,255,255);
+$colorText: rgb(0,0,0);
+
+// Prefixer (See https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/addons/_prefixer.scss)
+@mixin prefixer($property, $value, $prefixes) {
+  @each $prefix in $prefixes {
+    @if $prefix == webkit {
+      -webkit-#{$property}: $value;
+    } @else if $prefix == moz {
+      -moz-#{$property}: $value;
+    } @else if $prefix == ms {
+      -ms-#{$property}: $value;
+    } @else if $prefix == o {
+      -o-#{$property}: $value;
+    } @else if $prefix == spec {
+      #{$property}: $value;
+    } @else  {
+      @warn "Unrecognized prefix: #{$prefix}";
+    }
+  }
+}
+
+// Overlays
+@mixin overlay() {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+
+// Verically Align
+@mixin vertical-align() {
+  position: relative;
+  top: 50%;
+  @include prefixer(transform, perspective(1px) translateY(-50%), webkit ms spec);
+}
+
+// Transitions
+@mixin transition() {
+  @include prefixer(transition, $transition, webkit moz ms spec);
+}
+
+
+.popup {
+  position: fixed;
+  z-index: 9996;
+  opacity: 0;
+  visibility: hidden;
+  // @include transition();
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+    @include transition();
+  }
+  .popup-content {
+    display: inline-block;
+    z-index: 9999;
+    max-width: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+    padding: $gutter;
+    background-color: $colorBackground;
+    text-align: initial;
+    cursor: default;
+    white-space: initial;
+  }
+  &.overlay {
+    background: rgba($colorText, 0.85);
+    @include overlay();
+    position: fixed;
+    .popup-outside {
+      z-index: 9998;
+      @include overlay();
+    }
+    .popup-inner {
+      -webkit-backface-visibility: hidden;
+      cursor: pointer;
+      z-index: 9997;
+      text-align: center;
+      white-space: nowrap;
+      @include overlay();
+      @include prefixer(transition-delay, $transitionDelay, webkit moz spec);
+      @include prefixer(transform, translateY(-$gutter/2), webkit moz ms spec);
+      @include transition();
+    }
+    .popup-content {
+      @include vertical-align();
+    }
+    &.visible {
+      .popup-inner {
+        @include prefixer(transform, translateY(0px), webkit moz ms spec);
+      }
+    }
+  }
+  &.full-screen {
+    background: rgba($colorText, 0.85);
+    @include overlay();
+    .popup-inner {
+      -webkit-backface-visibility: hidden;
+      cursor: pointer;
+      z-index: 9999;
+      text-align: center;
+      white-space: nowrap;
+      @include overlay();
+      @include prefixer(transition-delay, $transitionDelay, webkit moz spec);
+      @include prefixer(transform, translateY(-$gutter/2), webkit moz ms spec);
+      @include transition();
+    }
+    .popup-content {
+      width: 100%;
+      height: 100%;
+    }
+    &.visible {
+      .popup-inner {
+        @include prefixer(transform, translateY(0px), webkit moz ms spec);
+      }
+    }
+  }
+  &.notification {
+    .popup-content {
+      position: fixed;
+      bottom: $gutter;
+      left: $gutter;
+      padding: $gutter/2;
+      @include prefixer(transition-delay, $transitionDelay, webkit moz spec);
+      @include prefixer(transform, translateY(-$gutter/2), webkit moz ms spec);
+      @include transition();
+    }
+    &.visible {
+      .popup-content {
+        @include prefixer(transform, translateY(0px), webkit moz ms spec);
+      }
+    }
+  }
+  .popup-close {
+    display: block;
+    position: absolute;
+    top: $gutter/2;
+    right: $gutter/2;
+  }
+}
