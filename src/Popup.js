@@ -52,7 +52,7 @@ module.exports = (() => {
     }
 
     toggle() {
-      return this.isVisible ? this.close() : this.open;
+      return this.isVisible ? this.close() : this.show();
     }
 
     static jQueryInterface(config) {

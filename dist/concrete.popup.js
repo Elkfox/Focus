@@ -739,7 +739,7 @@ module.exports = function () {
     }, {
       key: 'toggle',
       value: function toggle() {
-        return this.isVisible ? this.close() : this.open;
+        return this.isVisible ? this.close() : this.show();
       }
     }], [{
       key: 'jQueryInterface',
