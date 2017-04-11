@@ -643,13 +643,13 @@ module.exports = jQuery;
 "use strict";
 
 
-var Popup = __webpack_require__(40);
+var Popify = __webpack_require__(40);
 
 // We modular up in here.
 
 
 module.exports = {
-  Popup: Popup
+  Popify: Popify
 };
 
 /***/ }),
