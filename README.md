@@ -8,7 +8,7 @@ A minimal popup creator built by [Elkfox](https://www.elkfox.com).
 ---
 
 ### Instructions
-Grab `concrete.popup.js` or `concrete.popup.min.js` from the `dist/` folder. If you're just wanting to include a basic modal script on the your page include the following snippet in your index.html or other template file
+Grab `concrete.popup.js` or `concrete.popup.min.js` from the `dist/` folder. If you're just wanting to include a basic modal script on the your page include the following snippet in your html file.
 ```html
 <script src="<path_to_javascript_files>/concrete.popup.min.js"></script>
 ```
