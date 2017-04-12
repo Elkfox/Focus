@@ -712,9 +712,16 @@ module.exports = function () {
           var that = this;
 
           // When someone clicks the [data-close] button then we should close the modal.
-          jQuery(document).one('click', '[data-close], :not(' + this.config.target + ')', function (e) {
+          jQuery(document).one('click', '[data-close]', function (e) {
             e.preventDefault();
-            that.hide();
+            _this.hide();
+          });
+
+          jQuery(document).on('click', '.popup-inner', function (e) {
+            if (jQuery(e.target).is('.popup-inner') || jQuery(e.target).parents(_this.config.target).length === 0) {
+              _this.hide();
+              jQuery('.popup-inner').unbind('click');
+            }
           });
 
           jQuery(document).one('keyup', function (e) {
