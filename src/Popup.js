@@ -17,6 +17,7 @@ module.exports = (() => {
       this.show = this.show.bind(this);
       this.hide = this.hide.bind(this);
       this.toggle = this.toggle.bind(this);
+      this.transition = false;
     }
 
 
@@ -24,27 +25,27 @@ module.exports = (() => {
       if (!this.isVisible || !this.element.hasClass(this.config.visibleClass)) {
         this.element.addClass(this.config.visibleClass);
         this.isVisible = true;
-        const that = this;
+        const that = this; // Just in case.
 
         // When someone clicks the [data-close] button then we should close the modal.
-        jQuery(document).one('click', '[data-close]', (e) => {
+        this.element.one('click', '[data-close]', (e) => {
           e.preventDefault();
           this.hide();
         });
 
-        jQuery(document).on('click', '.popup-inner', (e) => {
+        this.element.on('click', '.popup-inner', (e) => {
           if (jQuery(e.target).is('.popup-inner') || jQuery(e.target).parents(this.config.target).length === 0) {
             this.hide();
             jQuery('.popup-inner').unbind('click');
           }
         });
 
-        jQuery(document).one('keyup', (e) => {
+        this.element.one('keyup', (e) => {
           e.preventDefault();
           if (e.keyCode === 27) this.hide();
         });
 
-        return jQuery(document).trigger('concrete:popup:open');
+        return jQuery(document).trigger('concrete:popup:open', [this.target]);
       }
       return jQuery(document).trigger('concrete:popup:error', { error: 'Popup already open' });
     }

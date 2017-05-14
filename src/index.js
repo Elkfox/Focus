@@ -5,4 +5,5 @@ const Popup = require('./Popup.js');
 
 module.exports = {
   Popup,
+  VERSION: '1.0.2'
 };
