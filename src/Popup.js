@@ -54,7 +54,7 @@ module.exports = (() => {
       if (this.isVisible || this.element.hasClass(this.config.visibleClass)) {
         this.element.removeClass(this.config.visibleClass);
         this.isVisible = false;
-        return jQuery(document).trigger('concrete:popup:close');
+        return jQuery(document).trigger('concrete:popup:close', [this.target]);
       }
       return jQuery(document).trigger('concrete:popup:error', { error: 'Modal is already closed' });
     }
@@ -94,5 +94,3 @@ module.exports = (() => {
 
   return Popup;
 })();
-
-
