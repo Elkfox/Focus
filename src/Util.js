@@ -2,6 +2,7 @@
 const jQuery = require('jquery');
 
 const Util = {
+
   getSelectorFromElement: (element) => {
     let selector = jQuery(element).data('target');
     if (!selector || selector === '#') {

@@ -33,7 +33,8 @@ module.exports = (() => {
           this.hide();
         });
 
-        this.element.on('click', '.popup-inner', (e) => {
+        // When someone specifically clicks outside the popup into the popup-inner class then we should close the popup
+        this.element.on('click', '.popup-inner', (e) => { 
           if (jQuery(e.target).is('.popup-inner') || jQuery(e.target).parents(this.config.target).length === 0) {
             this.hide();
             jQuery('.popup-inner').unbind('click');
@@ -84,6 +85,8 @@ module.exports = (() => {
     }
   }
 
+  // If the popup is opened using data-triggers then we need to create a new Popup class and bind it
+  // To the target element so we can open/close it as needed.
   jQuery(document).ready(() => {
     jQuery(document).on('click', '[data-trigger]', function trigger(e) {
       e.preventDefault();
@@ -91,6 +94,5 @@ module.exports = (() => {
       return Popup.jQueryInterface.call(jQuery(target), { toggle: 'toggle' });
     });
   });
-
   return Popup;
 })();
