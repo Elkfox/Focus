@@ -1,5 +1,5 @@
-# Concrete Popups
-A minimal popup creator built by [Elkfox](https://www.elkfox.com).
+# Focus
+A minimal popup, modal, overlay, drawer and dialogue window plugin built by [Elkfox](https://www.elkfox.com).
 
 ## Installation
 ### Requirements
