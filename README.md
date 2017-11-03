@@ -8,14 +8,14 @@ A minimal popup, modal, overlay, drawer and dialogue window plugin built by [Elk
 ---
 
 ### Instructions
-Grab `concrete.popup.js` or `concrete.popup.min.js` from the `dist/` folder. If you're just wanting to include a basic modal script on the your page include the following snippet in your html file.
+Grab `focus.js` or `focus.min.js` from the `dist/` folder. If you're just wanting to include a basic modal script on the your page include the following snippet in your html file.
 ```html
-<script src="<path_to_javascript_files>/concrete.popup.min.js"></script>
+<script src="<path_to_javascript_files>/focus.min.js"></script>
 ```
-or if you're using Shopify include the following in your theme.liquid just before the closing body 
+or if you're using Shopify include the following in your theme.liquid just before the closing body
 tag (`</body>`)
 ```liquid
-{{ 'concrete.popup.min.js' | asset_url | script_tag }}
+{{ 'focus.min.js' | asset_url | script_tag }}
 ```
 ----
 
@@ -23,10 +23,10 @@ tag (`</body>`)
 ## Usage
 
 ### Data API.
-  If you have a popup but you only want to activate it whenever someone clicks a button then the 
-  easiest way to do it is by using data attributes. By giving the following data attributes to an 
-  html button we can open a modal with the id `#examplePopup` 
-  
+  If you have a popup but you only want to activate it whenever someone clicks a button then the
+  easiest way to do it is by using data attributes. By giving the following data attributes to an
+  html button we can open a modal with the id `#examplePopup`
+
   The data attributes we'll be using are
   * `data-trigger="popup"`
   * `data-target="#examplePopup"`
@@ -40,18 +40,18 @@ tag (`</body>`)
     <button class="popup-close-button" data-close data-target="#examplePopup">Close Popup</button>
   </div>
   ```
-  Now whenever someone clicks the "Click Me" button it will open the `#examplePopup` popup which 
+  Now whenever someone clicks the "Click Me" button it will open the `#examplePopup` popup which
   contains a button to close the modal. Pretty easy!
 
 ---
 
 ### Javascript
-  If you have a popup that you want to show whenever a specific event is triggered or whenever 
+  If you have a popup that you want to show whenever a specific event is triggered or whenever
   certain parameters are met you can do that just as easily as using javascript objects.
 
   #### Example
-  Say we have a Shopify theme where we want a popup that contains the cart to appear whenever 
-  someone adds something to the cart. Assume that there is a fictitious jQuery event `itemAdded` 
+  Say we have a Shopify theme where we want a popup that contains the cart to appear whenever
+  someone adds something to the cart. Assume that there is a fictitious jQuery event `itemAdded`
   that fires whenever someone adds something to the cart. This is what our popup might look like
 
   ```html
@@ -68,7 +68,7 @@ tag (`</body>`)
   Below this HTML we can write the following script
   ```html
   <script type="text/javascript">
-    var cartPopup = new Concrete.Popup('.cart-popup');
+    var cartPopup = new Focus('.cart-popup');
     $(document).on("itemAdded", function(e) {
       cartPopup.show();
     });
@@ -76,7 +76,7 @@ tag (`</body>`)
   ```
 
 
-### CSS 
+### CSS
 We provide some css and scss files located in the `css/` folder that has been pulled from our inhouse framework "Concrete". Variables located at the top of the file are the easiest ways to modify the colours of the popup.
 
 #### Table Of Classes
@@ -100,9 +100,9 @@ The following options are available for popups. They can be set on the Data API 
 
 | Event        | Parameers          | Description  |
 | ------------- |:-------------| :-----|
-| concrete:popup:open     | None | Fires when a popup has finished opening |
-| concrete:popup:close    | None     |   Fires when a popup has finished closing |
-| concrete:popup:error | error (String)      | Fires when an event cannt open or close. Passes the error the event |
+| focus:open     | None | Fires when a popup has finished opening |
+| focus:close    | None     |   Fires when a popup has finished closing |
+| focus:error | error (String)      | Fires when an event cannt open or close. Passes the error the event |
 
 ---
 
