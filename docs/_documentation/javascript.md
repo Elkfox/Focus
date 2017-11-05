@@ -31,7 +31,7 @@ Say for example when a user scrolled a specific part of the page.
     $(document).on('scroll load resize', function(){
       var docTop = ($(document).scrollTop() + $(window).height());
       var scrollTrigger = $('#scrollTrigger').offset().top;
-      if( docTop > scrollTrigger ) {
+      if( docTop > scrollTrigger && docTop < (scrollTrigger+200) ) {
         // Now we have scrolled far enough lets open the popup 🎉
         scrollPopup.show();
       }
@@ -61,7 +61,7 @@ Say for example when a user scrolled a specific part of the page.
   $(document).on('scroll load resize', function(){
     var docTop = ($(document).scrollTop() + $(window).height());
     var scrollTrigger = $('#scrollTrigger').offset().top;
-    if( docTop > scrollTrigger ) {
+    if( docTop > scrollTrigger && docTop < (scrollTrigger+200)) {
       // Now we have scrolled far enough lets open the popup
       scrollPopup.show();
     }
