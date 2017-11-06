@@ -19,14 +19,17 @@
     max-height: 100%;
     overflow: auto; // Optional line for overly tall popups
     padding: $gutter;
-    background-color: $colorBackground;
+    background-color: $colorForeground;
     text-align: initial;
     cursor: default;
     white-space: initial;
-    color: $colorText;
+    color: $colorBackground;
+    a {
+      color: $colorBackground;
+    }
   }
   &.overlay {
-    background: rgba($colorBackground, 0.1);
+    background: rgba($colorForeground, 0.1);
     @include overlay();
     .popup-outside {
       position: absolute;
