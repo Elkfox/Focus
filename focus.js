@@ -67,9 +67,8 @@ Focus.eventHandler = function(target, method) {
 Focus.prototype.verticalAlign = function() {
   var _this = this;
   if (_this.config.avoidSubpixels) {
-    var popupHeight = Math.round(jQuery(this.target).find(_this.config.popupContent).outerHeight() / 2);
-    var windowHeight = Math.round($(window).height() / 2);
-    jQuery(this.target).find(_this.config.popupContent).css('top', windowHeight - popupHeight).css('transform', 'translateY(0)');
+    var marginTop = -Math.round(jQuery(this.target).find(_this.config.popupContent).outerHeight() / 2);
+    jQuery(this.target).find(_this.config.popupContent).css('margin-top', marginTop).css('transform', 'translateY(0)');
   }
 }
 Focus.prototype.show = function() {
