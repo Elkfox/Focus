@@ -6,7 +6,7 @@
 \___/|__/| \_/|__/\__/  /\_/
               |\
               |/
-Focus v1.2
+Focus v1.3
 https://github.com/Elkfox/Focus
 Copyright (c) 2017 Elkfox Co Pty Ltd
 https://elkfox.com
@@ -90,23 +90,22 @@ Focus.prototype.show = function() {
     }
 
     // When someone clicks the [data-close] button then we should close the modal
-    this.element.one('click', '[data-close]', function (e) {
+    this.element.on('click', '[data-close]', function (e) {
       e.preventDefault();
       _this.hide();
     });
 
     // When someone clicks on the inner class hide the popup
-    this.element.one('click', this.config.innerSelector, function (e) {
+    this.element.on('click', this.config.innerSelector, function (e) {
       if (jQuery(e.target).is(_this.config.innerSelector) || jQuery(e.target).parents(_this.config.target).length === 0) {
         _this.hide();
       }
     });
 
-    // When someone presses esc hide the popup
-    this.element.on('keyup', function (e) {
-      e.preventDefault();
+    // When someone presses esc hide the popup and unbind the event listener
+    jQuery(document).on('keyup', this.element,  function (e) {
       if (e.keyCode === 27) {
-        this.element.off('keyup');
+        jQuery(document).off('keyup', this.element);
         _this.hide();
       }
     });
@@ -123,6 +122,9 @@ Focus.prototype.hide = function() {
     if (this.config.avoidSubpixels) {
       jQuery(this.target).find(this.config.popupContent).removeAttr('style');
     }
+    // Unbind event listeners
+    this.element.off('click', this.config.innerSelector);
+    this.element.off('click', '[data-close]');
 
     this.visible = false;
     return jQuery(document).trigger('focus:close', [this.target]);
