@@ -6,7 +6,7 @@
 \___/|__/| \_/|__/\__/  /\_/
               |\
               |/
-Focus v1.3
+Focus v1.4
 https://github.com/Elkfox/Focus
 Copyright (c) 2017 Elkfox Co Pty Ltd
 https://elkfox.com
@@ -20,10 +20,13 @@ var Focus = function(target, config) {
   this.config = {
     'visibleClass': 'visible',
     'bodyClass': 'active-popup',
+    'targetClass': null,
     'innerSelector': '.popup-inner',
     'popupContent': '.popup-content',
     'avoidSubpixels': false,
-    'autoFocusSelector': '[data-auto-focus]'
+    'autoFocusSelector': '[data-auto-focus]',
+    'slide': null,
+    'visible': false
   };
   // Merge configs
   if(config) {
@@ -31,7 +34,7 @@ var Focus = function(target, config) {
       this.config[key] = config[key];
     }
   }
-  this.visible = false;
+  this.visible = this.config.visible;
   this.width = jQuery(this.config.popupContent).outerWidth();
   // Bind the functions
   this.show = this.show.bind(this);
@@ -45,17 +48,9 @@ Focus.getTarget = function(element, event) {
   if (jQuery(element).is('a')) {
     event.preventDefault();
   }
-  const selector = this.getSelectorFromElement(element);
+  const selector = jQuery(element).data('target');
   target = selector ? selector : null;
   return target;
-}
-Focus.getSelectorFromElement = function(element) {
-  var selector = jQuery(element).data('target');
-  if (!selector || selector === '#') {
-    // href can be used as a fallback instead of data target attribute
-    selector = jQuery(element).attr('href') || null;
-  }
-  return selector
 }
 Focus.eventHandler = function(target, method) {
   var element = Focus.elements[target];
@@ -75,6 +70,12 @@ Focus.prototype.verticalAlign = function() {
 Focus.prototype.show = function() {
   var _this = this;
   if (!this.visible || !this.element.hasClass(this.config.visibleClass)) {
+    if(this.config.targetClass) {
+      jQuery('[data-target="'+this.target+'"]').addClass(this.config.targetClass);
+    };
+    if(this.config.slide) {
+      this.element.slideDown();
+    };
     this.element.addClass(this.config.visibleClass);
     jQuery('body').addClass(this.config.bodyClass);
     this.visible = true;
@@ -91,8 +92,12 @@ Focus.prototype.show = function() {
 
     // When someone clicks the [data-close] button then we should close the modal
     this.element.on('click', '[data-close]', function (e) {
-      e.preventDefault();
-      _this.hide();
+      var target = Focus.getTarget(jQuery(this), event);
+      if(target) {
+        Focus.eventHandler(target, 'hide');
+      } else {
+        _this.hide();
+      }
     });
 
     // When someone clicks on the inner class hide the popup
@@ -116,6 +121,12 @@ Focus.prototype.show = function() {
 Focus.prototype.hide = function() {
   if (this.visible || this.element.hasClass(this.config.visibleClass)) {
     this.element.removeClass(this.config.visibleClass);
+    if(this.config.targetClass) {
+      jQuery('[data-target="'+this.target+'"]').removeClass(this.config.targetClass);
+    };
+    if(this.config.slide) {
+      this.element.slideUp();
+    };
     jQuery('body').removeClass(this.config.bodyClass);
 
     // Remove any vertical height that overrides subpixel placement
@@ -136,7 +147,8 @@ Focus.prototype.toggle = function() {
 }
 jQuery(document).ready(function() {
   jQuery('.popup:not(.sticky)').detach().appendTo('body');
-  jQuery(document).on('click', '[data-trigger="popup"]', function(event) {
+  jQuery(document).on('click', '[data-trigger]', function(event) {
+    var trigger = $(this).data('trigger');
     var target = Focus.getTarget(jQuery(this), event);
     Focus.eventHandler(target, 'toggle');
   });
