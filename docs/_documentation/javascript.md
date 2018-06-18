@@ -4,7 +4,7 @@ handle: "javascript"
 category: "javascript"
 ---
 
-In some cases you may wish to fire your popup from within your JavaScript.
+In some cases you may wish to fire your Focus element from within your JavaScript.
 
 Say for example when a user scrolled a specific part of the page.
 
@@ -21,7 +21,7 @@ Say for example when a user scrolled a specific part of the page.
 
   <h2 id="scrollTrigger">Scroll to here I dare you</h2>
   <script>
-    // In this scenario we need to initialise our popup with JS
+    // In this scenario we need to initialise our Focus element with JS
     var scrollPopup = new Focus('#scrollPopup');
 
     // Now scrollPopup has access to .hide .show and .toggle methods
@@ -50,7 +50,7 @@ Say for example when a user scrolled a specific part of the page.
 
 <h2 id="scrollTrigger">Scroll to here I dare you 👻</h2>
 <script>
-  // In this scenario we need to initialise our popup with JS
+  // In this scenario we need to initialise our Focus element with JS
   var scrollPopup = new Focus('#scrollPopup');
 
   // Now scrollPopup has access to .hide .show and .toggle methods
