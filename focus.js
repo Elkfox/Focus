@@ -6,9 +6,9 @@
 \___/|__/| \_/|__/\__/  /\_/
               |\
               |/
-Focus v1.4
+Focus v1.5
 https://github.com/Elkfox/Focus
-Copyright (c) 2017 Elkfox Co Pty Ltd
+Copyright (c) 2018 Elkfox Co Pty Ltd
 https://elkfox.com
 Project lead: George Butter
 MIT License
@@ -21,26 +21,36 @@ var Focus = function(target, config) {
     'visibleClass': 'visible',
     'bodyClass': 'active-popup',
     'targetClass': null,
+    'sticky': null,
     'innerSelector': '.popup-inner',
     'popupContent': '.popup-content',
-    'avoidSubpixels': false,
     'autoFocusSelector': '[data-auto-focus]',
     'slide': null,
     'visible': false
   };
   // Merge configs
-  if(config) {
+  if (config) {
     for (var key in config) {
       this.config[key] = config[key];
     }
   }
+
+  // Update current popup config
   this.visible = this.config.visible;
   this.width = jQuery(this.config.popupContent).outerWidth();
+
+  // Detach unless set to be sticky
+  if (!this.config.sticky) {
+    jQuery(document).ready(function() {
+      jQuery(target).detach().appendTo('body');
+    });
+  };
+
   // Bind the functions
   this.show = this.show.bind(this);
   this.hide = this.hide.bind(this);
   this.toggle = this.toggle.bind(this);
-  // Capture the variable so that we can fire it's proto methods by it's target.
+  // Capture the variable so that we can fire it's proto methods by it's target
   Focus.elements[target] = this;
 }
 Focus.elements = {};
@@ -54,34 +64,23 @@ Focus.getTarget = function(element, event) {
 }
 Focus.eventHandler = function(target, method) {
   var element = Focus.elements[target];
-  if(!element) {
+  if (!element) {
     var element = new Focus(target);
   }
   method === 'hide' ? element.hide() : element.toggle();
 }
-Focus.prototype.verticalAlign = function() {
-  var _this = this;
-  if (_this.config.avoidSubpixels) {
-    var popupHeight = Math.round(jQuery(this.target).find(_this.config.popupContent).outerHeight() / 2);
-    var windowHeight = Math.round($(window).height() / 2);
-    jQuery(this.target).find(_this.config.popupContent).css('top', windowHeight - popupHeight).css('transform', 'translateY(0)');
-  }
-}
 Focus.prototype.show = function() {
   var _this = this;
   if (!this.visible || !this.element.hasClass(this.config.visibleClass)) {
-    if(this.config.targetClass) {
+    if (this.config.targetClass) {
       jQuery('[data-target="'+this.target+'"]').addClass(this.config.targetClass);
     };
-    if(this.config.slide) {
+    if (this.config.slide) {
       this.element.slideDown();
     };
     this.element.addClass(this.config.visibleClass);
     jQuery('body').addClass(this.config.bodyClass);
     this.visible = true;
-
-    // Set our vertical height using JS to override subpixel placement
-    _this.verticalAlign();
 
     // Focus on an input field
     if (jQuery(this.target + ' ' + this.config.autoFocusSelector).length) {
@@ -93,7 +92,7 @@ Focus.prototype.show = function() {
     // When someone clicks the [data-close] button then we should close the modal
     this.element.on('click', '[data-close]', function (e) {
       var target = Focus.getTarget(jQuery(this), event);
-      if(target) {
+      if (target) {
         Focus.eventHandler(target, 'hide');
       } else {
         _this.hide();
@@ -121,18 +120,14 @@ Focus.prototype.show = function() {
 Focus.prototype.hide = function() {
   if (this.visible || this.element.hasClass(this.config.visibleClass)) {
     this.element.removeClass(this.config.visibleClass);
-    if(this.config.targetClass) {
+    if (this.config.targetClass) {
       jQuery('[data-target="'+this.target+'"]').removeClass(this.config.targetClass);
     };
-    if(this.config.slide) {
+    if (this.config.slide) {
       this.element.slideUp();
     };
     jQuery('body').removeClass(this.config.bodyClass);
 
-    // Remove any vertical height that overrides subpixel placement
-    if (this.config.avoidSubpixels) {
-      jQuery(this.target).find(this.config.popupContent).removeAttr('style');
-    }
     // Unbind event listeners
     this.element.off('click', this.config.innerSelector);
     this.element.off('click', '[data-close]');
@@ -146,7 +141,6 @@ Focus.prototype.toggle = function() {
   return this.visible ? this.hide() : this.show();
 }
 jQuery(document).ready(function() {
-  jQuery('.popup:not(.sticky)').detach().appendTo('body');
   jQuery(document).on('click', '[data-trigger]', function(event) {
     var trigger = $(this).data('trigger');
     var target = Focus.getTarget(jQuery(this), event);
@@ -154,13 +148,6 @@ jQuery(document).ready(function() {
   });
   jQuery(document).on('click', '[data-close]', function(event) {
     var target = Focus.getTarget(jQuery(this), event);
-    if(target) Focus.eventHandler(target, 'hide');
+    if (target) Focus.eventHandler(target, 'hide');
   });
-});
-jQuery(window).resize(function() {
-  for (var key in Focus.elements) {
-    if (Focus.elements[key].visible) {
-      Focus.elements[key].verticalAlign();
-    }
-  }
 });

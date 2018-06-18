@@ -32,7 +32,7 @@ Include add a popup with this basic structure.
 
           <h2>Hello world!</h2>
 
-          <a class="popup-close" data-close aria-label="{{ 'common.close' | t }}">Close popup</a>
+          <a class="popup-close" data-close aria-label="Close popup">Close popup</a>
         </div>
       </div>
     </div>
@@ -47,7 +47,7 @@ Include add a popup with this basic structure.
 
         <h2>Hello world!</h2>
 
-        <a class="popup-close" data-close aria-label="{{ 'common.close' | t }}">Close popup</a>
+        <a class="popup-close" data-close aria-label="Close popup">Close popup</a>
       </div>
     </div>
   </div>
@@ -65,5 +65,3 @@ Include add a popup with this basic structure.
   * `data-trigger="popup"`
   * `data-target="#examplePopup"`
   * `data-close`
-
-  

@@ -21,4 +21,4 @@ You may wish to configure your popup with some settings that are different to th
 | innerSelector | `.popup-inner` | string | Set the selector for the area outside of the popup, when clicked the popup will close. |
 | autoFocusSelector | `[data-auto-focus]` | string | Set the selector of an input field that you would like to be focused when the popup opens. |
 | popupContent   | `.popup-content` | string | Set the selector of the popups content.  |
-| avoidSubpixels | `false`  | boolean | Use javascript to stop the css from placing the popup on a subpixel value.
+| sticky | `false`  | boolean | Prevent popup from being relocated to the end of the body on init.

@@ -9,6 +9,7 @@ Focus is a minimal popup, modal, overlay, notification, drawer and dialogue wind
 ### Requirements
 
   * jQuery >= 1.3
+  * IE >= 10
 <!--
 .attr - v1
 .data - v1.2.3
