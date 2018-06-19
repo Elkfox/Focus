@@ -46,10 +46,11 @@ gulp.task('changelog', function () {
   .pipe(gulp.dest('./'));
 });
 
+// Ensure you duplicated the .env-sample and set your own GitHub token and renamed it .env
 gulp.task('github-release', function(done) {
   conventionalGithubReleaser({
     type: "oauth",
-    token: '0126af95c0e2d9b0a7c78738c4c00a860b04acc8' // change this to your own GitHub token or use an environment variable
+    token: process.env.GITHUB_AUTH_KEY
   }, {
     preset: 'atom'
   }, done);
