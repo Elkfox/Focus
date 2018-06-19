@@ -1,6 +1,6 @@
 {
   "name": "Focus",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "devDependencies": {
     "conventional-github-releaser": "^3.1.2",
     "gulp": "^3.9.1",
