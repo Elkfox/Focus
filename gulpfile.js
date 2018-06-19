@@ -49,7 +49,7 @@ gulp.task('changelog', function () {
 
 // Ensure you duplicated the .env-sample and set your own GitHub token and renamed it .env
 gulp.task('github-release', function(done) {
-  env({file: ".env"});
+  env({file: ".env.json"});
   gutil.log(gutil.colors.blue('[github]'), 'Pushing to github using authtoken: '+process.env.GITHUB_AUTH_KEY);
   conventionalGithubReleaser({
     type: "oauth",
