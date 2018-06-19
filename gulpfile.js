@@ -7,6 +7,7 @@ const babelMinify = require("gulp-babel-minify"); // Converts to ES5 before mini
 const gutil = require('gulp-util'); // Helps with debugging
 
 // Additional release gulp modules
+const env = require('gulp-env'); // For accessing environment variables
 const runSequence = require('run-sequence'); // Runs a sequence of gulp tasks
 const conventionalChangelog = require('gulp-conventional-changelog'); // Generates a changelog from git metadata
 const conventionalGithubReleaser = require('conventional-github-releaser'); // Make a new release from github metadata
@@ -48,6 +49,7 @@ gulp.task('changelog', function () {
 
 // Ensure you duplicated the .env-sample and set your own GitHub token and renamed it .env
 gulp.task('github-release', function(done) {
+  env({file: ".env"});
   gutil.log(gutil.colors.blue('[github]'), 'Pushing to github using authtoken: '+process.env.GITHUB_AUTH_KEY);
   conventionalGithubReleaser({
     type: "oauth",
