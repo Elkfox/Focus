@@ -56,7 +56,7 @@ Focus.elements = {};
 Focus.getTarget = function(element, event) {
   if (jQuery(element).is('a')) {
     event.preventDefault();
-  }
+  };
   const selector = jQuery(element).data('target');
   target = selector ? selector : null;
   return target;
