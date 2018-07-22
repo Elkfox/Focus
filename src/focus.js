@@ -10,7 +10,6 @@ Focus v1.5
 https://github.com/Elkfox/Focus
 Copyright (c) 2018 Elkfox Co Pty Ltd
 https://elkfox.com
-Project lead: George Butter
 MIT License
 ==============================================================================*/
 
