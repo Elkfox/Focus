@@ -22,7 +22,7 @@ const fs = require('fs'); // For working with the local file system
 
 // Define the location of our build directory
 const destination = 'dist/';
-const source = 'src/ajaxinate.js';
+const source = 'src/focus.js';
 
 var type = 'patch';
 var version = null;
@@ -121,7 +121,7 @@ gulp.task('license', function() {
   gulp.src('./LICENSE')
     .pipe(bump())
     .pipe(gulp.dest('./'));
-  gulp.src('./src/ajaxinate.js')
+  gulp.src('./'+src)
     .pipe(bump())
     .pipe(gulp.dest('./src/'));
 });
