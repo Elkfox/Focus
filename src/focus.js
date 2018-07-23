@@ -145,7 +145,8 @@ Focus.prototype.hide = function() {
 }
 Focus.prototype.toggle = function() {
   return this.visible ? this.hide() : this.show();
-}
+};
+
 // Create event listeners for all triggers and closes on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function(event) {
   const allTriggers = document.querySelectorAll('[data-trigger]');
