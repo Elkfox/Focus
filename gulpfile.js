@@ -92,7 +92,7 @@ gulp.task('bump-version', function () {
 gulp.task('commit-changes', function () {
   return gulp.src('.')
     .pipe(git.add())
-    .pipe(git.commit(':bookmark: ['+type+'] version: '+ version));
+    .pipe(git.commit(':bookmark: Create version: '+ version + ' ['+type+']'));
 });
 
 gulp.task('push-changes', function (cb) {
