@@ -154,21 +154,8 @@ gulp.task('release', function (callback) {
     });
 });
 
-gulp.task('testrelease', function (callback) {
+gulp.task('test', function (callback) {
   runSequence(
-    'lint',
-    'log'
-  )
-});
-gulp.task('log', function (callback) {
-  if(
-    args.type === 'minor' ||
-    args.type === 'major' ||
-    args.type === 'prerelease'
-  ) {
-    type = args.type;
-  }
-
-  gutil.log(args.type);
-  gutil.log(type);
+    'lint'
+  );
 });
