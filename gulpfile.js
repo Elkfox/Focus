@@ -154,6 +154,7 @@ gulp.task('release', function (callback) {
     });
 });
 
+// Add all test functions here
 gulp.task('test', function (callback) {
   runSequence(
     'lint'
