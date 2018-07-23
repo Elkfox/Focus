@@ -1,6 +1,12 @@
 {
   "name": "Focus",
   "version": "1.0.14",
+  "license": "SEE LICENSE IN LICENSE",
+  "description": "Front end visibility manager for popups, modals notifications, drawers, accordions and tabs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Elkfox/Focus.git"
+  },
   "devDependencies": {
     "conventional-github-releaser": "^3.1.2",
     "gulp": "^3.9.1",
