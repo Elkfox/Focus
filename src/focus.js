@@ -1,4 +1,4 @@
-/*==============================================================================
+/* ===================================================================================== @preserve =
  ___  _   _    _
 /   || | | |  | |
 \__  | | | |  | |  __
@@ -6,59 +6,66 @@
 \___/|__/| \_/|__/\__/  /\_/
               |\
               |/
-Focus v1.5
+Focus
+version v2.0.5
 https://github.com/Elkfox/Focus
-Copyright (c) 2018 Elkfox Co Pty Ltd
+Copyright (c) 2017 Elkfox Co Pty Ltd
 https://elkfox.com
-Project lead: George Butter
 MIT License
-==============================================================================*/
+================================================================================================= */
 
-var Focus = function(target, config) {
+const Focus = function(target, config) {
+  const settings = config || {};
   this.target = target;
-  this.element = jQuery(target);
-  this.config = {
-    'visibleClass': 'visible',
-    'bodyClass': 'active-popup',
-    'targetClass': null,
-    'sticky': null,
-    'innerSelector': '.popup-inner',
-    'autoFocusSelector': '[data-auto-focus]',
-    'slide': null,
-    'slideDuration': 'fast',
-    'visible': false
-  };
-  // Merge configs
-  if (config) {
-    for (var key in config) {
-      this.config[key] = config[key];
+  // The Dom element of the popup
+  this.element = document.querySelector(target);
+  // The default configurtation
+  const defaultSettings = {
+    visibleClass: 'visible',
+    bodyClass: 'active-popup',
+    targetClass: null,
+    detach: null,
+    innerSelector: '.popup-inner',
+    autoFocusSelector: '[data-auto-focus]',
+    slide: null,
+    slideDuration: 'fast',
+    visible: false,
+    callback: function(element) {
+      element.show();
     }
-  }
+  };
+
+  // Merge configs
+  this.settings = Object.assign(defaultSettings, settings);
 
   // Update current popup config
   this.visible = this.config.visible;
 
-  // Detach unless set to be sticky
-  if (!this.config.sticky) {
-    jQuery(document).ready(function() {
-      jQuery(target).detach().appendTo('body');
+  // If detach is set to true move the popup to the end of the popup
+  if(this.config.detach) {
+    document.addEventListener("DOMContentLoaded", function(event) {
+      document.body.appendChild(this.element);
     });
   };
 
-  // Bind the functions
+  // Bind this into all of our prototype function
   this.show = this.show.bind(this);
   this.hide = this.hide.bind(this);
   this.toggle = this.toggle.bind(this);
-  // Capture the variable so that we can fire it's proto methods by it's target
+
+  // Create a list of all of the currently active elements so that we can access them globally
   Focus.elements[target] = this;
 }
+
+// Create an empty object to store all of the elements in.
 Focus.elements = {};
+
 Focus.getTarget = function(element, event) {
-  if (jQuery(element).is('a')) {
+  if (this.element.tagName == 'A') {
     event.preventDefault();
   };
-  const selector = jQuery(element).data('target');
-  target = selector ? selector : null;
+  const selector = element.dataset.target;
+  const target = selector ? selector : null;
   return target;
 }
 Focus.eventHandler = function(target, method) {
@@ -139,7 +146,15 @@ Focus.prototype.hide = function() {
 Focus.prototype.toggle = function() {
   return this.visible ? this.hide() : this.show();
 }
-jQuery(document).ready(function() {
+// Create event listeners for all triggers and closes on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function(event) {
+  const allTriggers = document.querySelectorAll('[data-trigger]');
+  for (const i = 0; i < allTriggers.length; i++) {
+    allTriggers[i].addEventListener('click', function() {
+      const trigger = allTriggers[i].dataset.trigger;
+      const target = Focus.getTarget(event);
+    }
+  }
   jQuery(document).on('click', '[data-trigger]', function(event) {
     var trigger = $(this).data('trigger');
     var target = Focus.getTarget(jQuery(this), event);
