@@ -1,6 +1,6 @@
 {
   "name": "Focus",
-  "version": "1.0.14",
+  "version": "2.0.5",
   "license": "SEE LICENSE IN LICENSE",
   "description": "Front end visibility manager for popups, modals notifications, drawers, accordions and tabs",
   "repository": {
