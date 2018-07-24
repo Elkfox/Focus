@@ -121,7 +121,7 @@ gulp.task('license', function() {
   gulp.src('./LICENSE')
     .pipe(bump())
     .pipe(gulp.dest('./'));
-  gulp.src('./'+src)
+  gulp.src('./'+source)
     .pipe(bump())
     .pipe(gulp.dest('./src/'));
 });
