@@ -19,8 +19,6 @@ nav:
     url: '#javascript'
   - title: 'Options'
     url: '#options'
-  - title: 'jQuery Events'
-    url: '#jquery-events'
   - title: Styles
     url: '#css'
 

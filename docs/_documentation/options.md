@@ -23,5 +23,8 @@ You may wish to configure your Focus element with some settings that are differe
 | autoFocusSelector | `[data-auto-focus]` | string | Set the selector of an input field that you would like to be focused when the Focus element opens. |
 | slide   | `null` | boolean | Uses jQuery [slideDown](https://api.jquery.com/slideDown/) and [slideUp](https://api.jquery.com/slideUp/) functions for hiding and showing the focus element, useful for creating accordions.  |
 | slideDuration   | `fast` | number/string | Set the speed of the jQuery slideDown and slideUp functions.  |
-| sticky | `null`  | boolean | Prevent the Focus element from being relocated to the end of the body on init.
+| detach | `null`  | boolean | Move the element to the end of the body on initialisation.
 | visible | `false`  | boolean | Set to true if the focus element is visible by default.
+| showCallback | `null`  | function | Callback function for when a popup is successfully shown.
+| hideCallback | `null`  | function | Callback function for when a popup is successfully hidden.
+| error | `null`  | function | Callback function for when a popup could not be hidden or shown.
