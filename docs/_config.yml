@@ -17,6 +17,8 @@ nav:
     url: '#getting-started'
   - title: 'Javascript'
     url: '#javascript'
+  - title: 'Examples'
+    url: '#examples'
   - title: 'Options'
     url: '#options'
   - title: Styles

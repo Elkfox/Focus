@@ -79,3 +79,30 @@
     right: $gutter/2;
   }
 }
+
+[data-trigger="accordion"] {
+  background: rgba(0, 0, 0, 0.4);
+  padding: $gutter/4 $gutter/2;
+  cursor: pointer;
+  .less {
+    display: none;
+  }
+  .more {
+    display: inline-block;
+  }
+  &.open {
+    .less {
+      display: inline-block;
+    }
+    .more {
+      display: none;
+    }
+  }
+}
+
+.accordion-content {
+  background-color:  rgba(0, 0, 0, 0.6);
+  .accordion-inner {
+    padding: $gutter/4 $gutter/2;
+  }
+}

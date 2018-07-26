@@ -42,7 +42,6 @@ Say for example when a user scrolled a specific part of the page.
   <div class="popup-inner">
     <div class="popup-content left">
       <h2>👏 Now you're really getting focused!</h2>
-
       <a class="popup-close" data-close>Close popup</a>
     </div>
   </div>
