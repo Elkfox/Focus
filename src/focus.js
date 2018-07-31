@@ -178,46 +178,48 @@ Focus.removeClass = function removeAClassFromAGivenElement(element, className) {
 
 Focus.prototype.slideDown = function slideDown() {
   const el = this.element;
-  const defaultDisplay = this.element.style.display; //display none
+  // Display none
+  const defaultDisplay = this.element.style.display;
 
   el.style.display = 'block';
   el.style.overflow = 'visible';
   el.style.maxHeight = '100%';
-  this.maxHeight = el.offsetHeight; //declare the value of "height" variable
+  // Declare the value of "height" variable
+  this.maxHeight = el.offsetHeight;
   el.style.display = defaultDisplay;
   this.height = el.offsetHeight;
-  this.counter = this.height; //declare the value of "counter" variable
+  // Declare the value of "counter" variable
+  this.counter = this.height;
   el.style.maxHeight = `${this.height}px`;
   el.style.overflow = 'hidden';
   el.style.display = 'block';
 
-  const adder = this.maxHeight/100;
+  const adder = this.maxHeight / 100;
   // Iteratively increase the height
-  this.interval = setInterval(function () {
+  this.interval = setInterval(function interval() {
     this.counter += adder;
     if (this.counter < this.maxHeight) {
-      el.style.maxHeight = this.counter + "px";
+      el.style.maxHeight = `${this.counter}px`;
     } else {
       el.style.maxHeight = null;
       el.style.overflow = null;
       this.height = this.element.offsetHeight;
       clearInterval(this.interval);
     }
-  }.bind(this), this.settings.slideSpeed/100);
-
+  }.bind(this), this.settings.slideSpeed / 100);
 };
 
 Focus.prototype.slideUp = function slideUp() {
   const el = this.element;
-  const subtractor = this.maxHeight/100;
+  const subtractor = this.maxHeight / 100;
   // To hide the content of the element
   el.style.overflow = 'hidden';
 
   // Decreasing the height
-  this.interval = setInterval(function () {
+  this.interval = setInterval(function interval() {
     this.counter -= subtractor;
     if (this.counter > 0) {
-      el.style.maxHeight = this.counter + "px";
+      el.style.maxHeight = `${this.counter}px`;
     } else {
       el.style.maxHeight = null;
       el.style.display = 'none';
@@ -225,7 +227,7 @@ Focus.prototype.slideUp = function slideUp() {
 
       clearInterval(this.interval);
     }
-  }.bind(this), this.settings.slideSpeed/100);
+  }.bind(this), this.settings.slideSpeed / 100);
 };
 
 /*

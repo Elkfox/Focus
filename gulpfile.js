@@ -42,12 +42,12 @@ gulp.task('build', function() {
       presets: ['env']
     }))
     // Add a non minified version to the dist
-    .pipe(gulp.dest(destination))
+    // .pipe(gulp.dest(destination))
     .pipe(minify())
     // If there is an error during minification this will pretty print to the console
     .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
     // Then we can adjust the extension include min
-    .pipe(rename({ extname: '.min.js' }))
+    // .pipe(rename({ extname: '.min.js' }))
     // Then we output to the destination
     .pipe(gulp.dest(destination));
 });
