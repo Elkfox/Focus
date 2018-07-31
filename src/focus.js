@@ -6,11 +6,13 @@
 \___/|__/| \_/|__/\__/  /\_/
               |\
               |/
-Focus
-version v2.0.8
+
+Focus v2.2
 https://github.com/Elkfox/Focus
-Copyright (c) 2017 Elkfox Co Pty Ltd
+Copyright (c) 2018 Elkfox Co Pty Ltd
+
 https://elkfox.com
+Project lead: Oscar Strangio
 MIT License
 ================================================================================================= */
 
@@ -42,7 +44,7 @@ const Focus = function focusVisibilityManager(target, config) {
     innerSelector: '.popup-inner',
     autoFocusSelector: '[data-auto-focus]',
     slide: null,
-    slideDuration: 'fast',
+    slideSpeed: 200,
     visible: false,
     showCallback: null,
     hideCallback: null,
@@ -54,18 +56,29 @@ const Focus = function focusVisibilityManager(target, config) {
 
   // Update current popup config
   this.visible = this.settings.visible;
+
   // The Dom element of the popup
   this.element = document.querySelector(target);
   this.innerElement = document.querySelector(`${target} ${this.settings.innerSelector}`);
   this.closeElement = document.querySelector(`${target} [data-close]`);
   this.target = target;
 
+  if (this.settings.slide) {
+    const defaultDisplay = this.element.style.display;
+    this.element.style.display = 'block';
+    this.maxHeight = this.element.offsetHeight;
+    this.element.style.display = defaultDisplay;
+    this.height = this.element.offsetHeight;
+    this.counter = this.height;
+  }
 
   // Bind this into all of our prototype functions
   this.show = this.show.bind(this);
   this.hide = this.hide.bind(this);
   this.toggle = this.toggle.bind(this);
   this.detach = this.detach.bind(this);
+  this.slideDown = this.slideDown.bind(this);
+  this.slideUp = this.slideUp.bind(this);
 
   // If detach is set to true move the popup to the end of the popup
   if (this.settings.detach) {
@@ -96,14 +109,18 @@ Focus.getTarget = function getTheFocusElementRelatedToTheTarget(event) {
 */
 Focus.eventHandler = function hideOrShowTheElement(event, target, method) {
   let focus = Focus.elements[target];
+
   if (!focus) {
     focus = new Focus(target);
   }
+
   if (method === 'hide') {
     return focus.hide();
   }
+
   return focus.toggle();
 };
+
 /*
   When clicking on a close button or out element
 */
@@ -159,6 +176,58 @@ Focus.removeClass = function removeAClassFromAGivenElement(element, className) {
   }
 };
 
+Focus.prototype.slideDown = function slideDown() {
+  const el = this.element;
+  const defaultDisplay = this.element.style.display; //display none
+
+  el.style.display = 'block';
+  el.style.overflow = 'visible';
+  el.style.maxHeight = '100%';
+  this.maxHeight = el.offsetHeight; //declare the value of "height" variable
+  el.style.display = defaultDisplay;
+  this.height = el.offsetHeight;
+  this.counter = this.height; //declare the value of "counter" variable
+  el.style.maxHeight = `${this.height}px`;
+  el.style.overflow = 'hidden';
+  el.style.display = 'block';
+
+  const adder = this.maxHeight/100;
+  // Iteratively increase the height
+  this.interval = setInterval(function () {
+    this.counter += adder;
+    if (this.counter < this.maxHeight) {
+      el.style.maxHeight = this.counter + "px";
+    } else {
+      el.style.maxHeight = null;
+      el.style.overflow = null;
+      this.height = this.element.offsetHeight;
+      clearInterval(this.interval);
+    }
+  }.bind(this), this.settings.slideSpeed/100);
+
+};
+
+Focus.prototype.slideUp = function slideUp() {
+  const el = this.element;
+  const subtractor = this.maxHeight/100;
+  // To hide the content of the element
+  el.style.overflow = 'hidden';
+
+  // Decreasing the height
+  this.interval = setInterval(function () {
+    this.counter -= subtractor;
+    if (this.counter > 0) {
+      el.style.maxHeight = this.counter + "px";
+    } else {
+      el.style.maxHeight = null;
+      el.style.display = 'none';
+      el.style.overflow = null;
+
+      clearInterval(this.interval);
+    }
+  }.bind(this), this.settings.slideSpeed/100);
+};
+
 /*
   Show the popup element
 */
@@ -168,11 +237,11 @@ Focus.prototype.show = function showTheElement() {
     // Add the class to the trigger button if one is defined.
     if (this.settings.triggerClass) {
       const triggerElement = document.querySelector(`[data-target="${this.target}"]`);
-      Focus.addClass(triggerElement, this.settings.visibleClass);
+      Focus.addClass(triggerElement, this.settings.triggerClass);
     }
     // If slide is set to true slide the element down.
     if (this.settings.slide) {
-      this.element.slideDown(this.settings.slideDuration);
+      this.slideDown(this.settings.slideDuration);
     }
     // Add the visible class to the popup
     Focus.addClass(this.element, this.settings.visibleClass);
@@ -189,10 +258,16 @@ Focus.prototype.show = function showTheElement() {
       }, 300);
     }
 
-    // When someone clicks the [data-close] button then we should close the modal
-    this.closeElement.addEventListener('click', Focus.closeEvent.bind(this));
-    // When someone clicks on the inner class hide the popup
-    this.innerElement.addEventListener('click', Focus.closeEvent.bind(this));
+    if (this.closeElement) {
+      // When someone clicks the [data-close] button then we should close the modal
+      this.closeElement.addEventListener('click', Focus.closeEvent.bind(this));
+    }
+
+    if (this.innerElement) {
+      // When someone clicks on the inner class hide the popup
+      this.innerElement.addEventListener('click', Focus.closeEvent.bind(this));
+    }
+
     // When someone presses esc hide the popup and unbind the event listener
     this.element.addEventListener('keyup', Focus.escEvent.bind(this));
 
@@ -213,17 +288,21 @@ Focus.prototype.hide = function hideTheElement() {
 
     if (this.settings.triggerClass) {
       const triggerElement = document.querySelector(`[data-target="${this.target}"]`);
-      Focus.removeClass(triggerElement, this.settings.visibleClass);
+      Focus.removeClass(triggerElement, this.settings.triggerClass);
     }
     if (this.settings.slide) {
-      this.element.slideUp(this.settings.slideDuration);
+      this.slideUp(this.settings.slideDuration);
     }
     Focus.removeClass(document.body, this.settings.bodyClass);
 
     // When someone clicks the [data-close] button then we should close the modal
-    this.closeElement.removeEventListener('click', Focus.closeEvent);
+    if (this.closeElement) {
+      this.closeElement.removeEventListener('click', Focus.closeEvent);
+    }
     // When someone clicks on the inner class hide the popup
-    this.innerElement.removeEventListener('click', Focus.closeEvent);
+    if (this.innerElement) {
+      this.innerElement.removeEventListener('click', Focus.closeEvent);
+    }
 
     this.visible = false;
     // Fire the success callback
