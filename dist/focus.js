@@ -185,6 +185,8 @@ Focus.removeClass = function removeAClassFromAGivenElement(element, className) {
 };
 
 Focus.prototype.slideDown = function slideDown() {
+  var _this = this;
+
   var el = this.element;
   // Display none
   var defaultDisplay = this.element.style.display;
@@ -204,38 +206,40 @@ Focus.prototype.slideDown = function slideDown() {
 
   var adder = this.maxHeight / 100;
   // Iteratively increase the height
-  this.interval = setInterval(function interval() {
-    this.counter += adder;
-    if (this.counter < this.maxHeight) {
-      el.style.maxHeight = this.counter + 'px';
+  this.interval = setInterval(function () {
+    _this.counter += adder;
+    if (_this.counter < _this.maxHeight) {
+      el.style.maxHeight = _this.counter + 'px';
     } else {
       el.style.maxHeight = null;
       el.style.overflow = null;
-      this.height = this.element.offsetHeight;
-      clearInterval(this.interval);
+      _this.height = _this.element.offsetHeight;
+      clearInterval(_this.interval);
     }
-  }.bind(this), this.settings.slideSpeed / 100);
+  }, this.settings.slideSpeed / 100);
 };
 
 Focus.prototype.slideUp = function slideUp() {
+  var _this2 = this;
+
   var el = this.element;
   var subtractor = this.maxHeight / 100;
   // To hide the content of the element
   el.style.overflow = 'hidden';
 
   // Decreasing the height
-  this.interval = setInterval(function interval() {
-    this.counter -= subtractor;
-    if (this.counter > 0) {
-      el.style.maxHeight = this.counter + 'px';
+  this.interval = setInterval(function () {
+    _this2.counter -= subtractor;
+    if (_this2.counter > 0) {
+      el.style.maxHeight = _this2.counter + 'px';
     } else {
       el.style.maxHeight = null;
       el.style.display = 'none';
       el.style.overflow = null;
 
-      clearInterval(this.interval);
+      clearInterval(_this2.interval);
     }
-  }.bind(this), this.settings.slideSpeed / 100);
+  }, this.settings.slideSpeed / 100);
 };
 
 /*

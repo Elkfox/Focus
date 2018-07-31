@@ -7,7 +7,8 @@
               |\
               |/
 
-Focus v2.2
+Focus
+version v2.2
 https://github.com/Elkfox/Focus
 Copyright (c) 2018 Elkfox Co Pty Ltd
 
@@ -196,7 +197,7 @@ Focus.prototype.slideDown = function slideDown() {
 
   const adder = this.maxHeight / 100;
   // Iteratively increase the height
-  this.interval = setInterval(function interval() {
+  this.interval = setInterval(() => {
     this.counter += adder;
     if (this.counter < this.maxHeight) {
       el.style.maxHeight = `${this.counter}px`;
@@ -206,7 +207,7 @@ Focus.prototype.slideDown = function slideDown() {
       this.height = this.element.offsetHeight;
       clearInterval(this.interval);
     }
-  }.bind(this), this.settings.slideSpeed / 100);
+  }, this.settings.slideSpeed / 100);
 };
 
 Focus.prototype.slideUp = function slideUp() {
@@ -216,7 +217,7 @@ Focus.prototype.slideUp = function slideUp() {
   el.style.overflow = 'hidden';
 
   // Decreasing the height
-  this.interval = setInterval(function interval() {
+  this.interval = setInterval(() => {
     this.counter -= subtractor;
     if (this.counter > 0) {
       el.style.maxHeight = `${this.counter}px`;
@@ -227,7 +228,7 @@ Focus.prototype.slideUp = function slideUp() {
 
       clearInterval(this.interval);
     }
-  }.bind(this), this.settings.slideSpeed / 100);
+  }, this.settings.slideSpeed / 100);
 };
 
 /*
