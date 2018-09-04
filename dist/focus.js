@@ -9,7 +9,8 @@
               |\
               |/
 
-Focus v2.2
+Focus
+version v2.3.0
 https://github.com/Elkfox/Focus
 Copyright (c) 2018 Elkfox Co Pty Ltd
 
@@ -110,6 +111,7 @@ Focus.getTarget = function getTheFocusElementRelatedToTheTarget(event) {
   Therefore we create a new focus element. Then we toggle the elements visibility.
 */
 Focus.eventHandler = function hideOrShowTheElement(event, target, method) {
+  event.preventDefault();
   var focus = Focus.elements[target];
 
   if (!focus) {
@@ -127,7 +129,9 @@ Focus.eventHandler = function hideOrShowTheElement(event, target, method) {
   When clicking on a close button or out element
 */
 Focus.closeEvent = function handleAnElementBeingClosed(event) {
+  event.preventDefault();
   var target = Focus.getTarget(event);
+
   if (target) {
     Focus.eventHandler(event, target, 'hide');
   } else {
@@ -351,3 +355,6 @@ Focus.prototype.detach = function moveTheElementToTheEndOfTheBody() {
 
 // Create event listeners for all triggers and closes on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', Focus.buildEventListeners);
+
+// NPM exports
+module.exports = Focus;

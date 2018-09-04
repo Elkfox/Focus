@@ -1,12 +1,27 @@
 {
-  "name": "Focus",
-  "version": "2.2.0",
-  "license": "SEE LICENSE IN LICENSE",
+  "author": {
+    "name": "Elkfox",
+    "email": "opensource@elkfox.com",
+    "url": "https://elkfox.github.io"
+  },
+  "browser": "cartfox.js",
+  "bugs": {
+    "url": "https://github.com/Elkfox/Focus/issues"
+  },
   "description": "Front end visibility manager for popups, modals notifications, drawers, accordions and tabs",
+  "homepage": "https://elkfox.github.io/Focus",
+  "keywords": [
+    "Visibility",
+    "Popup",
+    "Lightbox"
+  ],
+  "license": "MIT",
+  "name": "@elkfox/focus",
   "repository": {
     "type": "git",
     "url": "https://github.com/Elkfox/Focus.git"
   },
+  "version": "2.3.0",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
