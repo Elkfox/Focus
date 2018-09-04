@@ -4,7 +4,7 @@
     "email": "opensource@elkfox.com",
     "url": "https://elkfox.github.io"
   },
-  "browser": "cartfox.js",
+  "browser": "dist/focus-min.js",
   "bugs": {
     "url": "https://github.com/Elkfox/Focus/issues"
   },
@@ -21,7 +21,7 @@
     "type": "git",
     "url": "https://github.com/Elkfox/Focus.git"
   },
-  "version": "2.3.1",
+  "version": "2.3.2",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
