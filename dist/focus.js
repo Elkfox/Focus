@@ -10,7 +10,7 @@
               |/
 
 Focus
-version v2.3.0
+version v2.3.1
 https://github.com/Elkfox/Focus
 Copyright (c) 2018 Elkfox Co Pty Ltd
 
