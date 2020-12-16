@@ -128,6 +128,9 @@ Focus.eventHandler = function hideOrShowTheElement(event, target, method) {
 */
 Focus.closeEvent = function handleAnElementBeingClosed(event) {
   event.preventDefault();
+  if (event.currentTarget !== event.target) {
+     return;
+  }
   const target = Focus.getTarget(event);
 
   if (target) {
